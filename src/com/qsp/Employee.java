@@ -4,6 +4,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
+import java.util.ListIterator;
 public class Employee {
     int id;
     String name;
@@ -20,6 +22,40 @@ public class Employee {
         this.name = name;
         this.salary = salary;
         this.deptno = deptno;
+        this.job = job;
+    }
+    
+    // get methods
+    public int getId() {
+        return id;
+    }
+    public String getName() {
+        return name;
+    }
+    public int getSalary() {
+        return salary;
+    }
+    public int getDeptno() {
+        return deptno;
+    }
+    public String getJob() {
+        return job;
+    }
+
+    // set method
+    public void setId(int id) {
+        this.id = id;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+    public void setDeptno(int deptno) {
+        this.deptno = deptno;
+    }
+    public void setJob(String job) {
         this.job = job;
     }
     
@@ -58,6 +94,9 @@ public class Employee {
             }
         }
     }
+    public void employeeInsert(int id, String name, int salary, int deptno, String job, LinkedList<Employee> linkedList) {
+        linkedList.add(new Employee(id, name, salary, deptno, job));
+    }
 
     // Delete
     public void employeeDelete(int id) {
@@ -87,6 +126,14 @@ public class Employee {
                 conn.close();
             } catch (Exception e) {
                 e.getStackTrace();
+            }
+        }
+    }
+    public void employeeDelete(int id , LinkedList<Employee> linkedList) {
+        ListIterator<Employee> listIterator = linkedList.listIterator();
+        while (listIterator.hasNext()) {
+            if (listIterator.next().getId()==id) {
+                listIterator.remove();
             }
         }
     }
@@ -124,6 +171,15 @@ public class Employee {
             }
         }
     }
+    public void employeeUpdated(int id, int new_id , LinkedList<Employee> linkedList) {
+        ListIterator<Employee> listI = linkedList.listIterator();
+        while (listI.hasNext()) {
+            if (listI.next().getId()==new_id) {
+                listI.previous().setId(new_id);
+                break;
+            }
+        }
+    }
     // Update name
     public void employeeUpdateName(int id , String name) {
         Connection conn= null;
@@ -153,6 +209,15 @@ public class Employee {
                 conn.close();
             } catch (Exception e) {
                 e.getStackTrace();
+            }
+        }
+    }
+    public void employeeUpdateName(int id, String name , LinkedList<Employee> linkedList) {
+        ListIterator<Employee> listI = linkedList.listIterator();
+        while (listI.hasNext()) {
+            if (listI.next().getId()==id) {
+                listI.previous().setName(name);
+                break;
             }
         }
     }
@@ -188,6 +253,15 @@ public class Employee {
             }
         }
     }
+    public void employeeUpdateSalary(int id, int salary , LinkedList<Employee> linkedList) {
+        ListIterator<Employee> listI = linkedList.listIterator();
+        while (listI.hasNext()) {
+            if (listI.next().getId()==id) {
+                listI.previous().setSalary(salary);
+                break;
+            }
+        }
+    }
     // Update deptno
     public void employeeUpdateDeptno(int id , int deptno) {
         Connection conn= null;
@@ -220,6 +294,15 @@ public class Employee {
             }
         }
     }
+    public void employeeUpdateDeptno(int id, int deptno , LinkedList<Employee> linkedList) {
+        ListIterator<Employee> listI = linkedList.listIterator();
+        while (listI.hasNext()) {
+            if (listI.next().getId()==id) {
+                listI.previous().setDeptno(deptno);
+                break;
+            }
+        }
+    }
     // Update job
     public void employeeUpdateJob(int id , String job) {
         Connection conn= null;
@@ -249,6 +332,15 @@ public class Employee {
                 conn.close();
             } catch (Exception e) {
                 e.getStackTrace();
+            }
+        }
+    }
+    public void employeeUpdateJob(int id, String job , LinkedList<Employee> linkedList) {
+        ListIterator<Employee> listI = linkedList.listIterator();
+        while (listI.hasNext()) {
+            if (listI.next().getId()==id) {
+                listI.previous().setJob(job);;
+                break;
             }
         }
     }
@@ -290,6 +382,15 @@ public class Employee {
             }
         }
     }
+    public void employeeSearchId(int id , LinkedList<Employee> linkedList) {
+        ListIterator<Employee> listI = linkedList.listIterator();
+        while (listI.hasNext()) {
+            if (listI.next().getId()==id) {
+                listI.previous().employeeDetails();
+                break;
+            }
+        }
+    }
     // Search by Name
     public void employeeSearchName(String name) {
         Connection conn = null;
@@ -323,6 +424,15 @@ public class Employee {
                 conn.close();
             } catch (Exception e) {
                 e.getStackTrace();
+            }
+        }
+    }
+    public void employeeSearchName(String name, LinkedList<Employee> linkedList) {
+        ListIterator<Employee> listI = linkedList.listIterator();
+        while (listI.hasNext()) {
+            if (listI.next().getName()==name) {
+                listI.previous().employeeDetails();
+                break;
             }
         }
     }
@@ -362,6 +472,15 @@ public class Employee {
             }
         }
     }
+    public void employeeSearchSalary(int salary , LinkedList<Employee> linkedList) {
+        ListIterator<Employee> listI = linkedList.listIterator();
+        while (listI.hasNext()) {
+            if (listI.next().getSalary()==salary) {
+                listI.previous().employeeDetails();
+                break;
+            }
+        }
+    }
     // Search by Deptno
     public void employeeSearchDeptno(int deptno) {
         Connection conn = null;
@@ -398,6 +517,15 @@ public class Employee {
             }
         }
     }
+    public void employeeSearchDeptno(int deptno , LinkedList<Employee> linkedList) {
+        ListIterator<Employee> listI = linkedList.listIterator();
+        while (listI.hasNext()) {
+            if (listI.next().getDeptno()==deptno) {
+                listI.previous().employeeDetails();
+                break;
+            }
+        }
+    }
     // Search by Job
     public void employeeSearchJob(String job) {
         Connection conn = null;
@@ -431,6 +559,15 @@ public class Employee {
                 conn.close();
             } catch (Exception e) {
                 e.getStackTrace();
+            }
+        }
+    }
+    public void employeeSearchJob(String job, LinkedList<Employee> linkedList) {
+        ListIterator<Employee> listI = linkedList.listIterator();
+        while (listI.hasNext()) {
+            if (listI.next().getJob()==job) {
+                listI.previous().employeeDetails();
+                break;
             }
         }
     }
@@ -473,11 +610,13 @@ public class Employee {
     }
     //employee details current
     public void employeeDetails(){
+        System.out.println(" |--------------------------------------------------------------------------------------|");
         System.out.println(" |\tid\t"+id+        "\t\t\t\t\t\t\t\t\t|");
         System.out.println(" |\tname\t"+name+    "\t\t\t\t\t\t\t\t|");
         System.out.println(" |\tsalary\t"+salary+"\t\t\t\t\t\t\t\t\t|");
         System.out.println(" |\tdeptno\t"+deptno+"\t\t\t\t\t\t\t\t\t|");
         System.out.println(" |\tjob\t"+job+      "\t\t\t\t\t\t\t\t|");
+        System.out.println(" |--------------------------------------------------------------------------------------|");
 
     }
 }
